@@ -1,6 +1,8 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -25,6 +27,7 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 */
 
 version = "2025.11"
+
 object MyVcsRoot : GitVcsRoot({
     name = "Anton-Shcherbatykh"
     url = "https://github.com/Anton-Shcherbatykh/FOPS38-18_example-teamcity.git"
@@ -37,7 +40,8 @@ object MyVcsRoot : GitVcsRoot({
 
 project {
     description = "Домашнее задание к занятию 11 «Teamcity»"
-
+    
+    vcsRoot(MyVcsRoot)
     buildType(Build)
 }
 
@@ -45,7 +49,7 @@ object Build : BuildType({
     name = "Build"
 
     vcs {
-        root(DslContext.settingsRoot)
+        root(MyVcsRoot)
     }
 
     steps {
@@ -69,13 +73,16 @@ object Build : BuildType({
         }
     }
 
+    artifactRules = "target/*.jar"
+
     features {
         perfmon {
         }
     }
-   triggers {
-       vcs {
-            branchFilter = "+:*"  // Запускать для всех веток
+
+    triggers {
+        vcs {
+            branchFilter = "+:*"
         }
     }
 })
