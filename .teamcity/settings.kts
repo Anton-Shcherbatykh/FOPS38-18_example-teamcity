@@ -64,4 +64,9 @@ object Build : BuildType({
         perfmon {
         }
     }
+   triggers {
+       vcs {
+            branchFilter = "+:*"  // Запускать для всех веток
+        }
+    }
 })
