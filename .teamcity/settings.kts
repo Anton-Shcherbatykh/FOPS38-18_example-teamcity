@@ -60,6 +60,8 @@ object Build : BuildType({
         }
     }
 
+    artifactRules = "target/*.jar"
+
     features {
         perfmon {
         }
