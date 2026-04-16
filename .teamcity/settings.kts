@@ -25,6 +25,15 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 */
 
 version = "2025.11"
+object MyVcsRoot : GitVcsRoot({
+    name = "Anton-Shcherbatykh"
+    url = "https://github.com/Anton-Shcherbatykh/FOPS38-18_example-teamcity.git"
+    branch = "refs/heads/master"
+    authMethod = password {
+        userName = "Anton-Shcherbatykh"
+        password = "credentialsJSON:ваш_токен_id"
+    }
+})
 
 project {
     description = "Домашнее задание к занятию 11 «Teamcity»"
